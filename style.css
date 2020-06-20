@@ -1,0 +1,22 @@
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 20px;
+    float: left;
+    color: rgb(1, 1, 29);
+}
+
+.container{
+    border-style: solid;
+    border-color:lightgray;
+    margin-top: 30px;
+    background-color: whitesmoke;
+}
+body{
+    background: url(street2.jpg);
+    background-repeat: no-repeat;
+    background-size: 2000px 800px;
+}
+
+
