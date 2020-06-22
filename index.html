@@ -31,37 +31,74 @@
                 class="right hide-on-med-and-down">
                 <li><a href="sass.html">Home</a></li>
                 <li><a href="badges.html">Saved
-                        Properity</a></li>
+                        Property</a></li>
             </ul>
         </div>
     </nav>
 
 
     <div class="container">
-        <H3> Search your Dream Properity</H3>
-
-
+        <h1> Search for your Dream Property</h1>
         <div>
+            <input type="text" id="9" class="col-8" placeholder="Enter suburb">
 
-            <input type="text" class="col-8"
-                placeholder="search here">
-            <a
-                class="btn-floating btn-large waves-effect waves-light red"><i
-                    class="material-icons">add</i></a>
+            <div class="form-criteria">
+                <h3>Choose your Criteria</h3>
+                <br>
+                <div class="input-field col s12" id="numOfBed">
+                    <select single>
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="3">4+</option>
+                    </select>
+                    <label>Min. Number of bedrooms</label>
+                  </div>
+            
+                  <div class="input-field col s12" id="numOfBath">
+                    <select single>
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="3">4+</option>
+                    </select>
+                    <label>Min. Number of bathrooms <i class="fas fa-bath"></i></label>
+                  </div>
+            
+                  <div class="input-field col s12" id="numOfCarpark">
+                    <select single>
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="3">4+</option>
+                    </select>
+                    <label>Min. Number of carparks</label>
+                  </div>
+            
+                  <div class="input-field col s12" id="propertyType">
+                    <select single>
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="1">House</option>
+                      <option value="2">Apartment</option>
+                      <option value="3">Townhouse</option>
+                      <option value="3">Land</option>
+                      <option value="3">Retirement</option>
+                    </select>
+                    <label>Property Type</label>
+                  </div>
 
+                  <div id="price-slider"></div>
+
+                </div>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Find me a house!
+                    <i class="material-icons right">house</i>
+                </button>
         </div>
     </div>
 
-
-    <div class="input-field col s12">
-        <select multiple>
-          <option value="" disabled selected>Choose your option</option>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-          <option value="3">Option 3</option>
-        </select>
-        <label>Materialize Multiple Select</label>
-      </div>
 
       
       <script
