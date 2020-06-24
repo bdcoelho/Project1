@@ -1,8 +1,3 @@
-$(document).ready(function(){
-
-var instance=  $('select').formSelect();
-
-
 
 $( "[name='action']" ).on("click", function (event) {
   event.preventDefault();
@@ -11,7 +6,7 @@ $( "[name='action']" ).on("click", function (event) {
   // console.log($(instance[1]).val());
   // console.log($(instance[2]).val());
   // console.log($(instance[3]).val());
-  
+  var instance=  $('select').formSelect();
   var numOfBed = $(instance[0]).val();
   var numOfBath = $(instance[1]).val();
   var numOfCarpark = $(instance[2]).val();
@@ -67,5 +62,5 @@ $.ajax({
 });
 }
 
-});
+
       

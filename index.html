@@ -29,8 +29,8 @@
             <a href="#" class="brand-logo">Logo</a>
             <ul id="nav-mobile"
                 class="right hide-on-med-and-down">
-                <li><a href="sass.html">Home</a></li>
-                <li><a href="badges.html">Saved
+                <li><a href="index.html">Home</a></li>
+                <li><a href="savedHistory.html">Saved
                         Property</a></li>
             </ul>
         </div>
@@ -93,7 +93,12 @@
                     <label>Property Type</label>
                   </div>
 
-                  <div id="price-slider"></div>
+                  <form action="#">
+                    <label>Max House Price</label>
+                    <p class="range-field">
+                      <input type="range" id="test5" min="0" max="10000000" />
+                    </p>
+                  </form>
 
                 </div>
                 <button class="btn waves-effect waves-light" type="submit" name="action">Find me a house!
@@ -124,6 +129,7 @@
         src="js/materialize.js"></script> -->
 
     <script src="./js/script.js"></script>
+    <script src="js/scriptMateriallize.js"></script>
 
 
 </body>
