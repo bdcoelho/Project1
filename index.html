@@ -47,7 +47,7 @@
                 <br>
 
                 
-                <div class="input-field col s12" id="numOfBed">
+                <div class="input-field col-md-3" id="numOfBed">
                     <select single>
                       <option value="" disabled selected>Choose your option</option>
                       <option value="1">1</option>
@@ -81,7 +81,7 @@
                   </div>
             
                   <div class="input-field col s12" id="propertyType">
-                    <select single>
+                    <select multiple>
                       <option value="" disabled selected>Choose your option</option>
                       <option value="1">House</option>
                       <option value="2">Apartment</option>
@@ -92,7 +92,12 @@
                     <label>Property Type</label>
                   </div>
 
-                  <div id="price-slider"></div>
+                  <form action="#">
+                    <label>Max House Price</label>
+                    <p class="range-field">
+                      <input type="range" id="test5" min="0" max="10000000" />
+                    </p>
+                  </form>
 
                 </div>
                 <button class="btn waves-effect waves-light" type="submit" name="action">Find me a house!
@@ -123,6 +128,7 @@
         src="js/materialize.js"></script> -->
 
     <script src="./js/script.js"></script>
+    <script src="js/materialScript.js"></script>
 
 
 </body>
