@@ -1,12 +1,24 @@
 $(document).ready(function(){
   $('select').formSelect();
 
+  
+
+  
+
 var queryURL = "https://api.domain.com.au/v1/listings/residential/_search";
 
 
+// numOfBed numOfBath, numOfCarpark, properityType
 
+var numOfBed=1//$("#numOfBed")
+var numOfBath=1//$("#numOfBath")
+var numOfCarpark=1//$("#numOfCarpark")
+var properityType=1//$("#properityType")
 
-
+console.log(numOfBed)
+console.log(numOfBath)
+console.log(numOfCarpark)
+console.log(properityType)
 
 
 $.ajax({
@@ -20,9 +32,9 @@ $.ajax({
   data: JSON.stringify({
     listingType: "Sale",
     propertyTypes: ["House", "apartmentUnitFlat", "townhouse"],
-    minBedrooms: 3,
-    minBathrooms: 2,
-    minCarspaces: 1,
+    minBedrooms: numOfBed,
+    minBathrooms: numOfBath,
+    minCarspaces: numOfCarpark,
     pageSize: 10,
     locations: [
       {
