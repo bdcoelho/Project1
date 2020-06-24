@@ -7,16 +7,28 @@ h1{
     color: rgb(1, 1, 29);
 }
 
+.footer{
+    position: fixed;
+    text-align: center;
+    bottom:0;
+    background-color: #ee6e73;
+    height: 30px;
+    width:100%;
+    
+}
+
 .container{
+    border-radius: 5px;
     border-style: solid;
     border-color:lightgray;
     margin-top: 30px;
     background-color: whitesmoke;
 }
-body{
+#indexBackground{
     background: url(./img/street2.jpg);
     background-repeat: no-repeat;
     background-size: 2000px 800px;
 }
+
 
 

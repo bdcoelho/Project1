@@ -1,6 +1,10 @@
 $(document).ready(function(){
   $('select').formSelect();
 
+  
+
+  
+
 var queryURL = "https://api.domain.com.au/v1/listings/residential/_search";
 
 
