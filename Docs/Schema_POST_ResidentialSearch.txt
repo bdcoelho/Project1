@@ -1,0 +1,48 @@
+{
+listingType	string
+Enum:
+Array [ 5 ]
+propertyTypes	[...]
+propertyFeatures	[...]
+listingAttributes	[...]
+propertyEstablishedType	string
+Enum:
+Array [ 3 ]
+minBedrooms	number($float)
+maxBedrooms	number($float)
+minBathrooms	number($float)
+maxBathrooms	number($float)
+minCarspaces	integer($int32)
+maxCarspaces	integer($int32)
+minPrice	integer($int32)
+maxPrice	integer($int32)
+minLandArea	integer($int32)
+maxLandArea	integer($int32)
+advertiserIds	[...]
+adIds	[...]
+excludeAdIds	[...]
+locations	[...]
+schoolCatchments	[...]
+locationTerms	string
+keywords	[...]
+newDevOnly	boolean
+inspectionFrom	string($date-time)
+inspectionTo	string($date-time)
+auctionFrom	string($date-time)
+auctionTo	string($date-time)
+dateAvailableFrom	string($date-time)
+dateAvailableTo	string($date-time)
+ruralOnly	boolean
+excludePriceWithheld	boolean
+excludeDepositTaken	boolean
+topspotKeywords	[...]
+customSort	Domain.SearchService.v2.Model.DomainSearchWebApiV2ModelsCustomSort{...}
+sort	Domain.SearchService.v2.Model.SystemNullableDomainSearchWebApiV2ModelsSortBy{...}
+pageSize	integer($int32)
+geoWindow	Domain.SearchService.v2.Model.DomainSearchWebApiV2ModelsGeoWindow{...}
+updatedSince	string($date-time)
+listedSince	string($date-time)
+includeInspectionAggregations	boolean
+tags	[...]
+pageNumber	integer($int32)
+}
