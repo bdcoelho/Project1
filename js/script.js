@@ -1,26 +1,36 @@
 $(document).ready(function(){
-  $('select').formSelect();
+
+var instance=  $('select').formSelect();
+
+
+
+$( "[name='action']" ).on("click", function (event) {
+  event.preventDefault();
+  console.log("clicked");
+  // console.log($(instance[0]).val());
+  // console.log($(instance[1]).val());
+  // console.log($(instance[2]).val());
+  // console.log($(instance[3]).val());
+  
+  var numOfBed = $(instance[0]).val();
+  var numOfBath = $(instance[1]).val();
+  var numOfCarpark = $(instance[2]).val();
+  var propertyType = $(instance[3]).val();
 
   
 
-  
+  console.log(numOfBed);
+  console.log(numOfBath);
+  console.log(numOfCarpark);
+  console.log(propertyType);
 
+
+
+});
+
+
+listProperties = function(){
 var queryURL = "https://api.domain.com.au/v1/listings/residential/_search";
-
-
-// numOfBed numOfBath, numOfCarpark, properityType
-
-var numOfBed=1//$("#numOfBed")
-var numOfBath=1//$("#numOfBath")
-var numOfCarpark=1//$("#numOfCarpark")
-var properityType=1//$("#properityType")
-
-console.log(numOfBed)
-console.log(numOfBath)
-console.log(numOfCarpark)
-console.log(properityType)
-
-
 $.ajax({
   url: queryURL,
   method: "POST",
@@ -55,6 +65,7 @@ $.ajax({
 }).then(function (response) {
   console.log(response);
 });
+}
 
 });
       
