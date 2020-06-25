@@ -1,3 +1,4 @@
+GetResponseFromDomain
 $(document).ready(function(){
 
   var instance=  $('select').formSelect();
@@ -100,3 +101,4 @@ $(document).ready(function(){
   
   });
         
+

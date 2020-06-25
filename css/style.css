@@ -63,5 +63,10 @@ h1{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-
+.thumb {
+    width: 100px;
+}
+.circle {
+    border-radius: 100%;
+  }
 
