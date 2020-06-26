@@ -2,8 +2,11 @@
 //Below are the script needed for Materiallize work
 
 $(document).ready(function(){
-
+  $('select').formSelect();
 });
+        
+// *********************************//
+
 
 var slider = document.getElementById('test-slider');
 noUiSlider.create(slider, {

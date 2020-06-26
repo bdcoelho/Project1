@@ -1,4 +1,4 @@
-GetResponseFromDomain
+// GetResponseFromDomain
 $(document).ready(function(){
 
   var instance=  $('select').formSelect();
