@@ -1,6 +1,6 @@
 // GetResponseFromDomain
 $(document).ready(function(){
-
+  var maxPropertyValue = 500000;
   var instance=  $('select').formSelect();
   
   // Function to convert to camelCase and remove forward slash. Unnecessary - changed value in index.html
@@ -16,9 +16,19 @@ $(document).ready(function(){
   //             return b.toLowerCase(); 
   //         }); 
   // } 
+
+
+  var slider=document.getElementById("slider")
   
-  
-  
+  $("#slider").on("click", function (event) {
+    maxPropertyValue = $(".value").html()
+    console.log(maxPropertyValue)
+    return (maxPropertyValue)
+
+  }
+  );
+
+
   
   $( "[name='action']" ).on("click", function (event) {
     event.preventDefault();
@@ -44,13 +54,17 @@ $(document).ready(function(){
     console.log(numOfBath);
     console.log(numOfCarpark);
     console.log(propertyType);
+    console.log(maxPropertyValue);
   
+
+    
   
     listProperties(suburb,
       numOfBed,
       numOfBath,
       numOfCarpark,
-      propertyType
+      propertyType,
+      maxPropertyValue,
       );
   
   
@@ -77,6 +91,7 @@ $(document).ready(function(){
       minBedrooms: numOfBed,
       minBathrooms: numOfBath,
       minCarspaces: numOfCarpark,
+      maxPrice: maxPropertyValue,
       pageSize: 10,
       locations: [
         {
