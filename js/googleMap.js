@@ -47,7 +47,7 @@ function initMap () {
         $("#saveWorkAddress").on("click",function(){
             var testing = $(this).parent().attr("id")
             var textContent = $(this).siblings("input").val;
-            console.log(textContent);
+            
 
             localStorage.setItem(testing, textContent)
             
