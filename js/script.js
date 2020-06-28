@@ -113,8 +113,12 @@ console.log(filteredArray)
 
 
 
-      var thisProperty = $("#card-container");
-      thisProperty.empty();
+      var searchResults = $("#card-container");
+      searchResults.empty();
+      var heading = $("<h2 class='header'>Search Results</h2>");
+      searchResults.append(heading)
+
+
 
       for (var i = 0; i < 3; i++) {
         console.log(filteredArray[i]);
@@ -130,13 +134,7 @@ console.log(filteredArray)
         propertyImage = filteredArray[i].listing.media[0].url;
         propertyAddress = filteredArray[i].listing.propertyDetails.displayableAddress;
         propertyId = filteredArray[i].listing.id;
-        var propertyMeta={
-          image: propertyImage,
-address:propertyAddress,
-id:propertyId
-        };
 
-        console.log(propertyMeta);
 
         var thisCard = $("<div class='card horizontal' id='card"+i+"'></div>");
 
@@ -201,7 +199,7 @@ id:propertyId
 
         var thisLink = $("<div></div>");
 
-        thisProperty.append(
+        searchResults.append(
           thisCard.append(
             thisCardImg.append(thisImg),
             thisStack.append(
