@@ -78,7 +78,6 @@ h1{
   }
 
 
-
   .result-img{
     margin: 5px;
 }
@@ -92,4 +91,14 @@ font-size: 120%;
 .right-aligned{
 
     float: right;
+}
+.travelInfo{
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+    margin-top: 30px;
+    background-color: whitesmoke;
+    padding: 15px;
+    margin-left: 175px;
+    margin-right: 175px;
 }
