@@ -119,6 +119,9 @@ $(document).ready(function () {
     var heading = $("<h2 class='header'>Search Results</h2>");
     searchResults.append(heading);
 
+var iterator = 0;
+var limitMAx = 10;
+
     for (var i = 0; i < 3; i++) {
       console.log(filteredArray[i]);
       var propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
@@ -235,6 +238,12 @@ $(document).ready(function () {
 //get current min property index
 //get current max property index
 //set new property index = current max property index
+var indexLow="xxx";
+var indexHigh="xxx";
+var newIndexLow="xxx";
+var newIndexhigh="xxx";
+
+
 
     })
 
@@ -280,6 +289,11 @@ $(document).ready(function () {
 
 
 });
+
+// next button - 
+// local storage - save heart items to local storage
+// next and previous buttons have to set i to next or previous state.
+
 
 // function storeHistory(lat, lng, myLocation) {
 //   var retrieveStorage = localStorage["searchHistory"];
