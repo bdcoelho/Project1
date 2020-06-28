@@ -122,10 +122,12 @@ $(document).ready(function () {
         propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
         console.log(propertySuburb);
         propertyState = filteredArray[i].listing.propertyDetails.state;
+        propertyPostCode = filteredArray[i].listing.propertyDetails.postcode;
         propertyBeds = filteredArray[i].listing.propertyDetails.bedrooms;
         propertyBaths = filteredArray[i].listing.propertyDetails.bathrooms;
         propertyCars = filteredArray[i].listing.propertyDetails.carspaces;
         propertyHeadline = filteredArray[i].listing.headline;
+        propertySummary = filteredArray[i].listing.summaryDescription;
         propertyImage = filteredArray[i].listing.media[0].url;
 
 
@@ -135,14 +137,27 @@ $(document).ready(function () {
 
         var thisCardImg = $("<div class='card-image'></div>");
 
-        var thisImg = $("<img></img>");
+        var thisImg = $("<img class='result-img'></img>");
         thisImg.attr("src", propertyImage);
 
         var thisStack = $("<div class='card-stacked'></div>");
 
         var thisContent = $("<div class='card-content'></div>");
+
+        var thisHeader = $("<div></div>");
+
+
+        var thisFavoriteImg = $("<img></img>");
+
+        thisFavoriteImg.attr("src", "./css/img/LoveUnSelect.png");
+        thisFavoriteImg.attr("width", "7%");
         var thisPara = $(
-          "<p>"+propertyHeadline+"</p>"
+          "<p class='title-text'>"+propertyHeadline+"</p>"
+        );
+
+
+        var thisSummary = $(
+          "<p>"+propertySummary+"</p>"
         );
         var thisAction = $("<div class='card-action'></div>");
 
@@ -150,17 +165,21 @@ $(document).ready(function () {
 
 
 
-        var thisBeds = $("<span>"+propertyBeds+"</span>");
-        var thisBaths = $("<span>"+propertyBaths+"</span>");
-        var thisCars = $("<span>"+propertyCars+"</span>");
+        var thisBeds = $("<span class='spaced-icons'>"+propertyBeds+"</span>");
+        var thisBaths = $("<span class='spaced-icons'>"+propertyBaths+"</span>");
+        var thisCars = $("<span class='spaced-icons'>"+propertyCars+"</span>");
 
-        var bedImgSpan = $("<span></span>");
-        var bathImgSpan = $("<span></span>");
-        var carImgSpan = $("<span></span>");
+        var bedImgSpan = $("<span class='spaced-icons'></span>");
+        var bathImgSpan = $("<span class='spaced-icons'></span>");
+        var carImgSpan = $("<span class='spaced-icons'></span>");
         
         var bedImg = $("<img></img>");
         bedImg.attr("src", "./css/img/Bed.png");
         bedImg.attr("width", "7%");
+        
+        var thisShortAddress = $("<span class='right-aligned'>"+propertySuburb+', '+propertyState+' '+propertyPostCode+"</span>");
+
+
         
   
         var bathImg = $("<img></img>");
@@ -177,11 +196,13 @@ $(document).ready(function () {
           thisCard.append(
             thisCardImg.append(thisImg),
             thisStack.append(
-              thisContent.append(thisPara),
+              thisContent.append(thisHeader.append(thisPara,thisFavoriteImg)
+
+              ,thisSummary),
               thisAction.append(thisLink.append(bedImgSpan.append(bedImg),
               thisBeds,bathImgSpan.append(bathImg)
               ,thisBaths,carImgSpan.append(carImg)
-              ,thisCars))
+              ,thisCars,thisShortAddress))
             )
           )
         );

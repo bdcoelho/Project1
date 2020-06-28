@@ -70,5 +70,26 @@ h1{
     border-radius: 100%;
   }
 
+  .spaced-icons{
+      margin: 3px;
+      font-size: large;
+      font-weight: 500;
+
+  }
 
 
+
+  .result-img{
+    margin: 5px;
+}
+
+
+.title-text{
+font-weight: bold;
+font-size: 120%;
+}
+
+.right-aligned{
+
+    float: right;
+}
