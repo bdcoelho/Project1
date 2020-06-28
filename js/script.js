@@ -112,10 +112,7 @@ $(document).ready(function () {
       });
 
       var thisProperty = $("#card-container");
-      thisProperty.empty()
-      
-
-
+      thisProperty.empty();
 
       for (let i = 0; i < 3; i++) {
         console.log(filteredArray[i]);
@@ -130,9 +127,6 @@ $(document).ready(function () {
         propertySummary = filteredArray[i].listing.summaryDescription;
         propertyImage = filteredArray[i].listing.media[0].url;
 
-
-
-
         var thisCard = $("<div class='card horizontal'></div>");
 
         var thisCardImg = $("<div class='card-image'></div>");
@@ -146,42 +140,46 @@ $(document).ready(function () {
 
         var thisHeader = $("<div></div>");
 
-
-        var thisFavoriteImg = $("<img></img>");
+        var thisFavoriteImg = $("<img class='favorite'></img>");
 
         thisFavoriteImg.attr("src", "./css/img/LoveUnSelect.png");
+        // This next line should update depending on local storage
+        thisFavoriteImg.attr("data-state", "Unselected");
+
         thisFavoriteImg.attr("width", "7%");
-        var thisPara = $(
-          "<p class='title-text'>"+propertyHeadline+"</p>"
-        );
+        var thisPara = $("<p class='title-text'>" + propertyHeadline + "</p>");
 
-
-        var thisSummary = $(
-          "<p>"+propertySummary+"</p>"
-        );
+        var thisSummary = $("<p>" + propertySummary + "</p>");
         var thisAction = $("<div class='card-action'></div>");
 
-
-
-
-
-        var thisBeds = $("<span class='spaced-icons'>"+propertyBeds+"</span>");
-        var thisBaths = $("<span class='spaced-icons'>"+propertyBaths+"</span>");
-        var thisCars = $("<span class='spaced-icons'>"+propertyCars+"</span>");
+        var thisBeds = $(
+          "<span class='spaced-icons'>" + propertyBeds + "</span>"
+        );
+        var thisBaths = $(
+          "<span class='spaced-icons'>" + propertyBaths + "</span>"
+        );
+        var thisCars = $(
+          "<span class='spaced-icons'>" + propertyCars + "</span>"
+        );
 
         var bedImgSpan = $("<span class='spaced-icons'></span>");
         var bathImgSpan = $("<span class='spaced-icons'></span>");
         var carImgSpan = $("<span class='spaced-icons'></span>");
-        
+
         var bedImg = $("<img></img>");
         bedImg.attr("src", "./css/img/Bed.png");
         bedImg.attr("width", "7%");
-        
-        var thisShortAddress = $("<span class='right-aligned'>"+propertySuburb+', '+propertyState+' '+propertyPostCode+"</span>");
 
+        var thisShortAddress = $(
+          "<span class='right-aligned'>" +
+            propertySuburb +
+            ", " +
+            propertyState +
+            " " +
+            propertyPostCode +
+            "</span>"
+        );
 
-        
-  
         var bathImg = $("<img></img>");
         bathImg.attr("src", "./css/img/Bath.png");
         bathImg.attr("width", "7%");
@@ -196,28 +194,43 @@ $(document).ready(function () {
           thisCard.append(
             thisCardImg.append(thisImg),
             thisStack.append(
-              thisContent.append(thisHeader.append(thisPara,thisFavoriteImg)
+              thisContent.append(
+                thisHeader.append(thisPara, thisFavoriteImg),
 
-              ,thisSummary),
-              thisAction.append(thisLink.append(bedImgSpan.append(bedImg),
-              thisBeds,bathImgSpan.append(bathImg)
-              ,thisBaths,carImgSpan.append(carImg)
-              ,thisCars,thisShortAddress))
+                thisSummary
+              ),
+              thisAction.append(
+                thisLink.append(
+                  bedImgSpan.append(bedImg),
+                  thisBeds,
+                  bathImgSpan.append(bathImg),
+                  thisBaths,
+                  carImgSpan.append(carImg),
+                  thisCars,
+                  thisShortAddress
+                )
+              )
             )
           )
         );
-
-
       }
 
-
-
-
+      // This event listener should be able to update local storage
+      $(".favorite").on("click", function () {
+        // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+        var state = $(this).attr("data-state");
+        console.log(this);
+        if (state === "Unselected") {
+          $(this).attr("src", "./css/img/LoveSelect.png");
+          $(this).attr("data-state", "Selected");
+        } else {
+          $(this).attr("src", "./css/img/LoveUnSelect.png");
+          $(this).attr("data-state", "Unselected");
+        }
+      });
     });
   }
 });
-
-
 
 /* <div class="card horizontal">
 <div class="card-image">
@@ -232,6 +245,3 @@ $(document).ready(function () {
   </div>
 </div>
 </div> */
-
-
-
