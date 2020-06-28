@@ -34,6 +34,7 @@ $(document).ready(function () {
 
   $("[name='action']").on("click", function (event) {
     event.preventDefault();
+    var propertyStore=[]
     console.log("clicked");
 
     var suburb = $("#9").val();
@@ -42,11 +43,7 @@ $(document).ready(function () {
     var numOfCarpark = parseInt($(instance[2]).val());
     var propertyType = $(instance[3]).val();
 
-    // var suburb = "";
-    // var numOfBed = 1;
-    // var numOfBath = 1;
-    // var numOfCarpark = 1;
-    // var propertyType = ["House", "apartmentUnitFlat", "Townhouse"];
+
 
     console.log(suburb);
     console.log(numOfBed);
@@ -111,10 +108,15 @@ $(document).ready(function () {
         return type.indexOf(itm.type) > -1;
       });
 
+console.log(filteredArray)
+   localStorage["propertyStore"] = JSON.stringify(filteredArray);
+
+
+
       var thisProperty = $("#card-container");
       thisProperty.empty();
 
-      for (let i = 0; i < 3; i++) {
+      for (var i = 0; i < 3; i++) {
         console.log(filteredArray[i]);
         propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
         console.log(propertySuburb);
@@ -126,8 +128,17 @@ $(document).ready(function () {
         propertyHeadline = filteredArray[i].listing.headline;
         propertySummary = filteredArray[i].listing.summaryDescription;
         propertyImage = filteredArray[i].listing.media[0].url;
+        propertyAddress = filteredArray[i].listing.propertyDetails.displayableAddress;
+        propertyId = filteredArray[i].listing.id;
+        var propertyMeta={
+          image: propertyImage,
+address:propertyAddress,
+id:propertyId
+        };
 
-        var thisCard = $("<div class='card horizontal'></div>");
+        console.log(propertyMeta);
+
+        var thisCard = $("<div class='card horizontal' id='card"+i+"'></div>");
 
         var thisCardImg = $("<div class='card-image'></div>");
 
@@ -138,7 +149,7 @@ $(document).ready(function () {
 
         var thisContent = $("<div class='card-content'></div>");
 
-        var thisHeader = $("<div></div>");
+        var thisHeader = $("<div id='header"+i+"'></div>");
 
         var thisFavoriteImg = $("<img class='favorite'></img>");
 
@@ -220,6 +231,8 @@ $(document).ready(function () {
         // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
         var state = $(this).attr("data-state");
         console.log(this);
+        console.log(event.target.parentElement.id)
+
         if (state === "Unselected") {
           $(this).attr("src", "./css/img/LoveSelect.png");
           $(this).attr("data-state", "Selected");
@@ -231,6 +244,33 @@ $(document).ready(function () {
     });
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+// function storeHistory(lat, lng, myLocation) {
+//   var retrieveStorage = localStorage["searchHistory"];
+//   var locationInfo = retrieveStorage ? JSON.parse(retrieveStorage) : [];
+//   locationInfo.push({ ui: myLocation, latitude: lat, longitude: lng });
+//   var obj = {};
+//   for (var i = 0, len = locationInfo.length; i < len; i++)
+//     obj[locationInfo[i]["ui"]] = locationInfo[i];
+//   locationInfo = new Array();
+//   for (var key in obj) locationInfo.push(obj[key]);
+//   localStorage["searchHistory"] = JSON.stringify(locationInfo);
+
+//   renderHistory(locationInfo)
+
+// }
+
+
 
 /* <div class="card horizontal">
 <div class="card-image">
