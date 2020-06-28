@@ -34,7 +34,7 @@ $(document).ready(function () {
 
   $("[name='action']").on("click", function (event) {
     event.preventDefault();
-    var propertyStore=[]
+    var propertyStore = [];
     console.log("clicked");
 
     var suburb = $("#9").val();
@@ -42,8 +42,6 @@ $(document).ready(function () {
     var numOfBath = parseInt($(instance[1]).val());
     var numOfCarpark = parseInt($(instance[2]).val());
     var propertyType = $(instance[3]).val();
-
-
 
     console.log(suburb);
     console.log(numOfBed);
@@ -108,35 +106,33 @@ $(document).ready(function () {
         return type.indexOf(itm.type) > -1;
       });
 
-console.log(filteredArray)
-   localStorage["propertyStore"] = JSON.stringify(filteredArray);
-
-
+      console.log(filteredArray);
+      localStorage["propertyStore"] = JSON.stringify(filteredArray);
 
       var searchResults = $("#card-container");
       searchResults.empty();
       var heading = $("<h2 class='header'>Search Results</h2>");
-      searchResults.append(heading)
-
-
+      searchResults.append(heading);
 
       for (var i = 0; i < 3; i++) {
         console.log(filteredArray[i]);
-        propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
-        console.log(propertySuburb);
-        propertyState = filteredArray[i].listing.propertyDetails.state;
-        propertyPostCode = filteredArray[i].listing.propertyDetails.postcode;
-        propertyBeds = filteredArray[i].listing.propertyDetails.bedrooms;
-        propertyBaths = filteredArray[i].listing.propertyDetails.bathrooms;
-        propertyCars = filteredArray[i].listing.propertyDetails.carspaces;
-        propertyHeadline = filteredArray[i].listing.headline;
-        propertySummary = filteredArray[i].listing.summaryDescription;
-        propertyImage = filteredArray[i].listing.media[0].url;
-        propertyAddress = filteredArray[i].listing.propertyDetails.displayableAddress;
-        propertyId = filteredArray[i].listing.id;
+        var propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
+        var propertyState = filteredArray[i].listing.propertyDetails.state;
+        var propertyPostCode =
+          filteredArray[i].listing.propertyDetails.postcode;
+        var propertyBeds = filteredArray[i].listing.propertyDetails.bedrooms;
+        var propertyBaths = filteredArray[i].listing.propertyDetails.bathrooms;
+        var propertyCars = filteredArray[i].listing.propertyDetails.carspaces;
+        var propertyHeadline = filteredArray[i].listing.headline;
+        var propertySummary = filteredArray[i].listing.summaryDescription;
+        var propertyImage = filteredArray[i].listing.media[0].url;
+        var propertyAddress =
+          filteredArray[i].listing.propertyDetails.displayableAddress;
+        var propertyId = filteredArray[i].listing.id;
 
-
-        var thisCard = $("<div class='card horizontal' id='card"+i+"'></div>");
+        var thisCard = $(
+          "<div class='card horizontal' id='card" + i + "'></div>"
+        );
 
         var thisCardImg = $("<div class='card-image'></div>");
 
@@ -147,7 +143,9 @@ console.log(filteredArray)
 
         var thisContent = $("<div class='card-content'></div>");
 
-        var thisHeader = $("<div id='header"+i+"'></div>");
+        var thisHeader = $(
+          "<div id='header" + i + "'" + " data-id=" + i + "></div>"
+        );
 
         var thisFavoriteImg = $("<img class='favorite'></img>");
 
@@ -228,8 +226,7 @@ console.log(filteredArray)
       $(".favorite").on("click", function () {
         // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
         var state = $(this).attr("data-state");
-        console.log(this);
-        console.log(event.target.parentElement.id)
+        favoriteIndex=event.target.parentElement.getAttribute("data-id");
 
         if (state === "Unselected") {
           $(this).attr("src", "./css/img/LoveSelect.png");
@@ -242,16 +239,6 @@ console.log(filteredArray)
     });
   }
 });
-
-
-
-
-
-
-
-
-
-
 
 // function storeHistory(lat, lng, myLocation) {
 //   var retrieveStorage = localStorage["searchHistory"];
@@ -267,8 +254,6 @@ console.log(filteredArray)
 //   renderHistory(locationInfo)
 
 // }
-
-
 
 /* <div class="card horizontal">
 <div class="card-image">
