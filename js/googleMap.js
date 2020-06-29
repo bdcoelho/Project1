@@ -54,7 +54,7 @@ function initMap () {
 
         })
 
-        $(".work-address").children("input").val(localStorage.getItem("work-address"))
+        // $(".work-address").children("input").val(localStorage.getItem("work-address"))
 
 
 
