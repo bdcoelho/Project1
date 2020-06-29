@@ -41,6 +41,7 @@ h1{
     background: url(./img/street2.jpg);
     background-repeat: no-repeat;
     background-size: 2000px 800px;
+    background-color: lightslategrey;
 }
 
 .card {
@@ -109,3 +110,13 @@ display: none;
 
 }
 
+#card-container{
+    background-color: lightgray;
+}
+.card.horizontal{
+    background-color: lightgray;
+}
+
+#savedPage{
+    background-color: lightslategrey;
+}
