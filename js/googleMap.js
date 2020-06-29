@@ -1,26 +1,17 @@
 function initMap () {
     apiKey = "AIzaSyDkoaZdFxBFFsVXF2Hey8DXZ-tIiR_NBYM"
 
-    var workAddress = "436 Johnston st Abbotsford,au";
+    var workAddress = "436 Johnston st Abbotsford,au"; // can probalby do $("#work-input")
 
     var propertyAddress = "216 Johnston st Abbotsford,au"; //can potentially get the element by the propertyaddress
 
     
-        // [ORIGINAL]var queryURL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY&key=" + apiKey;
+    
 
         var queryURL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + propertyAddress + "&destinations=" + workAddress + "&key=" + apiKey;
         console.log(queryURL);
 
-        // $.ajax({
-        //     url: queryURL,
-        //     method: "GET",
-        // }).then(function(response){
-        //     console.log(response);
-
-            //     });
-    // }
-
-    // distanceToWork()
+  
         var service = new google.maps.DistanceMatrixService();
         service.getDistanceMatrix(
             {
@@ -33,9 +24,37 @@ function initMap () {
                 // avoidHighways: Boolean,
                 // avoidTolls: Boolean,
             }, function (response) {
-                console.log(response)
+                console.log(response);
+                var distanceToWork= response.rows[0].elements[0].distance.text;
+                var pOne = $("<p>").text("Distance to destination: " + distanceToWork);
+                console.log(distanceToWork)
+                var duration = response.rows[0].elements[0].duration.text;
+                var pTwo = $("<p>").text("Duration: " + duration);
+
+                    
+                $(".travelInfo").append(pOne);
+                $(".travelInfo").append(pTwo);
+                
+
+
+                
             })
         }
+
+
+        // save the work address in the local storage//
+
+        $("#saveWorkAddress").on("click",function(){
+            var testing = $(this).parent().attr("id")
+            var textContent = $(this).siblings("input").val;
+            
+
+            localStorage.setItem(testing, textContent)
+            
+
+        })
+
+        $(".work-address").children("input").val(localStorage.getItem("work-address"))
 
 
 
