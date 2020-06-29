@@ -2,6 +2,27 @@
 $(document).ready(function () {
   var maxPropertyValue = 5000000;
   var instance = $("select").formSelect();
+  var iteratorMin = 0;
+  var iteratorMax = 9;
+  var searchResults = $("#card-container");
+  var filteredArray =[]
+  var lowIndex = 0;
+  var highIndex = 10;
+
+  $("[name='next-btn']").on("click", function () {
+    lowIndex = iteratorMax;
+    highIndex = lowIndex + 10;
+    searchResults.empty();
+    renderResults(filteredArray,lowIndex,highIndex);
+  });
+
+  $("[name='prev-btn']").on("click", function () {
+    lowIndex = iteratorMin - 10;
+    lowIndex=Math.max(lowIndex,0)
+    highIndex = lowIndex + 10;
+    searchResults.empty();
+    renderResults(filteredArray,lowIndex,highIndex);
+  });
 
   // Function to convert to camelCase and remove forward slash. Unnecessary - changed value in index.html
   //   function camelCase(str) {
@@ -28,27 +49,19 @@ $(document).ready(function () {
 
   $("#slider").on("click", function (event) {
     maxPropertyValue = $(".value").html();
-    console.log(maxPropertyValue);
     return maxPropertyValue;
   });
 
   $("[name='action']").on("click", function (event) {
     event.preventDefault();
+    searchResults.empty();
     var propertyStore = [];
-    console.log("clicked");
 
     var suburb = $("#9").val();
     var numOfBed = parseInt($(instance[0]).val());
     var numOfBath = parseInt($(instance[1]).val());
     var numOfCarpark = parseInt($(instance[2]).val());
     var propertyType = $(instance[3]).val();
-
-    console.log(suburb);
-    console.log(numOfBed);
-    console.log(numOfBath);
-    console.log(numOfCarpark);
-    console.log(propertyType);
-    console.log(maxPropertyValue);
 
     listProperties(
       suburb,
@@ -102,28 +115,33 @@ $(document).ready(function () {
       contentType: "application/json",
     }).then(function (response) {
       var type = ["PropertyListing"];
-      var filteredArray = response.filter(function (itm) {
+      filteredArray = response.filter(function (itm) {
         return type.indexOf(itm.type) > -1;
       });
 
       console.log(filteredArray);
       localStorage["propertyStore"] = JSON.stringify(filteredArray);
-      renderResults(filteredArray);
-
+      renderResults(filteredArray,lowIndex,highIndex);
     });
   }
 
-  function renderResults(filteredArray) {
-    var searchResults = $("#card-container");
-    searchResults.empty();
+  function renderResults(filteredArray,lowIndex,highIndex) {
     var heading = $("<h2 class='header'>Search Results</h2>");
     searchResults.append(heading);
 
-var iterator = 0;
-var limitMAx = 10;
+    console.log(lowIndex);
+    console.log(highIndex)
 
-    for (var i = 0; i < 3; i++) {
-      console.log(filteredArray[i]);
+    for (
+      var i = Math.max(lowIndex, 0);
+      i < Math.min(highIndex, filteredArray.length);
+      i++
+    ) {
+      
+      console.log("iterator=" + i);
+      iteratorMin = Math.min(lowIndex, i);
+      iteratorMax = Math.max(highIndex, i);
+
       var propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
       var propertyState = filteredArray[i].listing.propertyDetails.state;
       var propertyPostCode = filteredArray[i].listing.propertyDetails.postcode;
@@ -229,97 +247,24 @@ var limitMAx = 10;
       );
     }
 
-    var nextBtn = $(
-      "<a class='waves-effect waves-light btn right-aligned' id='next-btn'><i class='material-icons right'>navigate_next</i>Next</a>"
-    );
 
-    $(".next-btn").on("click", function () {
-
-//get current min property index
-//get current max property index
-//set new property index = current max property index
-var indexLow="xxx";
-var indexHigh="xxx";
-var newIndexLow="xxx";
-var newIndexhigh="xxx";
-
-
-
-    })
-
-    var prevBtn = $(
-      "<a class='waves-effect waves-light btn' id='prev-btn'><i class='material-icons left'>navigate_before</i>Previous</a>"
-    );
+    $("[name='next-btn']").css("display","inline")
+    $("[name='prev-btn']").css("display","inline")
     
-    
-    
-    $(".prev-btn").on("click", function () {
+    // This event listener should be able to update local storage
 
-      var indexLow="xxx";
-      var indexHigh="xxx";
-      var newIndexLow="xxx";
-      var newIndexhigh="xxx";
-
-    })
-
-
-
-
-    searchResults.append(prevBtn, nextBtn);
-
-
-
-  
-      // This event listener should be able to update local storage
-      $(".favorite").on("click", function () {
-        // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-        var state = $(this).attr("data-state");
-        favoriteIndex = event.target.parentElement.getAttribute("data-id");
-        console.log(favoriteIndex)
-        if (state === "Unselected") {
-          $(this).attr("src", "./css/img/LoveSelect.png");
-          $(this).attr("data-state", "Selected");
-        } else {
-          $(this).attr("src", "./css/img/LoveUnSelect.png");
-          $(this).attr("data-state", "Unselected");
-        }
-      });
-
-  };
-
-
+    $(".favorite").on("click", function () {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      favoriteIndex = event.target.parentElement.getAttribute("data-id");
+      console.log(favoriteIndex);
+      if (state === "Unselected") {
+        $(this).attr("src", "./css/img/LoveSelect.png");
+        $(this).attr("data-state", "Selected");
+      } else {
+        $(this).attr("src", "./css/img/LoveUnSelect.png");
+        $(this).attr("data-state", "Unselected");
+      }
+    });
+  }
 });
-
-// next button - 
-// local storage - save heart items to local storage
-// next and previous buttons have to set i to next or previous state.
-
-
-// function storeHistory(lat, lng, myLocation) {
-//   var retrieveStorage = localStorage["searchHistory"];
-//   var locationInfo = retrieveStorage ? JSON.parse(retrieveStorage) : [];
-//   locationInfo.push({ ui: myLocation, latitude: lat, longitude: lng });
-//   var obj = {};
-//   for (var i = 0, len = locationInfo.length; i < len; i++)
-//     obj[locationInfo[i]["ui"]] = locationInfo[i];
-//   locationInfo = new Array();
-//   for (var key in obj) locationInfo.push(obj[key]);
-//   localStorage["searchHistory"] = JSON.stringify(locationInfo);
-
-//   renderHistory(locationInfo)
-
-// }
-
-/* <div class="card horizontal">
-<div class="card-image">
-  <img src="https://lorempixel.com/100/190/nature/6">
-</div>
-<div class="card-stacked">
-  <div class="card-content">
-    <p>I am a very simple card. I am good at containing small bits of information.</p>
-  </div>
-  <div class="card-action">
-    <a href="#">This is a link</a>
-  </div>
-</div>
-</div> */

@@ -93,3 +93,17 @@ font-size: 120%;
 
     float: right;
 }
+
+
+.toggle-button{
+
+display: none;
+
+}
+
+
+.toggle-button-on{
+
+    display: inline;
+    
+    }
