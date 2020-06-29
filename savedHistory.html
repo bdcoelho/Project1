@@ -20,7 +20,7 @@
 <body>
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Logo</a>
+            <a href="#" class="brand-logo">Dream Home</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="savedHistory.html">Saved
@@ -42,15 +42,21 @@
                     
             </div>
 
-            <div class="col s9">
-                <div class="container" id="savedProperty">
-                    <p> this container will have a list of property or suburb you saved</p>
-                    <br>
-                    <p id="suburbInfo"> once we clicked on the saved property maybe we can apend the property info such
-                        as distance to work,
-                        cloest PT, suburb average price(HiChart), suburb demographics(optional) etc.....</p>
-                </div>
-            </div>
+
+            <table>
+                <thead>
+                  <tr>
+                      <th>Address</th>
+                      <th>Travel Distance</th>
+                      <th>Travel Time</th>
+                  </tr>
+                </thead>
+        
+                <tbody id="table-body">
+
+                </tbody>
+              </table>
+                    
         </div>
     </div>
 
@@ -75,7 +81,7 @@
     <!-- <script type="text/javascript"
         src="js/materialize.js"></script> -->
 
-    <script src="./js/script.js"></script>
+    <script src="./js/savedHistory.js"></script>
     <script src="js/scriptMateriallize.js"></script>
     <script src="js/googleMap.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkoaZdFxBFFsVXF2Hey8DXZ-tIiR_NBYM&callback=initMap"></script>
