@@ -1,5 +1,5 @@
 # Project1
-FIND MY DREAM PROPERTY 
+THE DREAM PROPERTY HUNTERS
 
 ## Elevator pitch
 This application is designed to simplify and optimise the property search process for users. 
@@ -41,4 +41,6 @@ Shakib - HTML/CSS and Google maps API
 Our main challenge was making sure the branches were successfully merged and that conflicts were resolved. 
 
 We also experienced difficulty in how to use the materialize css framework as we found it to be more manual than Bootstrap, where we had to utilise jQuery to make components functional and responsive. 
+
+The Distance Matrix API from the Google Cloud Platform was also a challenge as it required us to use other methods of retrieving the response rather than AJAX. 
 
