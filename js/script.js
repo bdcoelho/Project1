@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
   var maxPropertyValue = 5000000;
   var instance = $("select").formSelect();
@@ -51,33 +50,54 @@ $(document).ready(function () {
     return maxPropertyValue;
   });
 
+  function buildGeoCodeURL(searchTerm) {
+    var queryURLGeo = "https://maps.googleapis.com/maps/api/geocode/json?";
+    var queryParams = { key: "AIzaSyAwmiVLmIUNhiWqaGiGzlHl7WIec1ST8Ys" };
+    queryParams.address = searchTerm.val().trim();
+    return queryURLGeo + $.param(queryParams);
+  }
+
   $("[name='action']").on("click", function (event) {
     event.preventDefault();
     searchResults.empty();
     var propertyStore = [];
 
-    var suburb = $("#9").val();
-    var numOfBed = parseInt($(instance[0]).val());
-    var numOfBath = parseInt($(instance[1]).val());
-    var numOfCarpark = parseInt($(instance[2]).val());
-    var propertyType = $(instance[3]).val();
+    var queryURLGeo = buildGeoCodeURL($("#9"));
 
-    listProperties(
-      suburb,
-      numOfBed,
-      numOfBath,
-      numOfCarpark,
-      propertyType,
-      maxPropertyValue
-    );
+    $.ajax({
+      url: queryURLGeo,
+      method: "GET",
+    }).then(function (responseGeo) {
+      var numOfBed = parseInt($(instance[0]).val());
+      var numOfBath = parseInt($(instance[1]).val());
+      var numOfCarpark = parseInt($(instance[2]).val());
+      var propertyType = $(instance[3]).val();
+      var suburb = responseGeo.results[0].address_components[0].long_name;
+      var state = responseGeo.results[0].address_components[2].short_name;
+      var country = responseGeo.results[0].address_components[3].long_name;
+      var postcode = responseGeo.results[0].address_components[4].long_name;
+      listProperties(
+        suburb,
+        state,
+        postcode,
+        numOfBed,
+        numOfBath,
+        numOfCarpark,
+        propertyType,
+        maxPropertyValue
+      );
+    });
   });
 
   function listProperties(
     suburb,
+    state,
+    postcode,
     numOfBed,
     numOfBath,
     numOfCarpark,
-    propertyType
+    propertyType,
+    maxPropertyValue
   ) {
     var queryURL = "https://api.domain.com.au/v1/listings/residential/_search";
     $.ajax({
@@ -98,11 +118,11 @@ $(document).ready(function () {
         pageSize: 100,
         locations: [
           {
-            state: "VIC",
+            state: state,
             region: "",
             area: "",
             suburb: suburb,
-            postCode: "",
+            postCode: postcode,
             includeSurroundingSuburbs: false,
           },
         ],
@@ -132,7 +152,6 @@ $(document).ready(function () {
       i < Math.min(highIndex, filteredArray.length);
       i++
     ) {
-      console.log("iterator=" + i);
       iteratorMin = Math.min(lowIndex, i);
       iteratorMax = Math.max(highIndex, i);
 
@@ -256,7 +275,6 @@ $(document).ready(function () {
 
     $("[name='next-btn']").css("display", "inline");
     $("[name='prev-btn']").css("display", "inline");
-
 
     $(".favorite").on("click", function () {
       var state = $(this).attr("data-state");
