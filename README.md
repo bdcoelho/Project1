@@ -34,7 +34,7 @@ Shakib - HTML/CSS and Google maps API
 
 #### Desktop Version
 
-![Desktop Version](https://github.com/bdcoelho/Weather-Dashboard/blob/master/Assets/Screenshot_Desktop.png "Desktop Version")
+![Desktop Version](https://github.com/bdcoelho/Project1/blob/master/css/img/Desktop.png "Desktop Version")
 
 
 ## Main challenges
