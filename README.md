@@ -32,6 +32,8 @@ Shakib - HTML/CSS and Google maps API
 ## Screen shot
 
 
+
+
 #### Desktop Version
 
 ![Desktop Version](https://github.com/bdcoelho/Project1/blob/master/css/img/Desktop.png "Desktop Version")
