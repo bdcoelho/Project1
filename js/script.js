@@ -108,126 +108,174 @@ $(document).ready(function () {
 
       console.log(filteredArray);
       localStorage["propertyStore"] = JSON.stringify(filteredArray);
+      renderResults(filteredArray);
 
-      var searchResults = $("#card-container");
-      searchResults.empty();
-      var heading = $("<h2 class='header'>Search Results</h2>");
-      searchResults.append(heading);
+    });
+  }
 
-      for (var i = 0; i < 3; i++) {
-        console.log(filteredArray[i]);
-        var propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
-        var propertyState = filteredArray[i].listing.propertyDetails.state;
-        var propertyPostCode =
-          filteredArray[i].listing.propertyDetails.postcode;
-        var propertyBeds = filteredArray[i].listing.propertyDetails.bedrooms;
-        var propertyBaths = filteredArray[i].listing.propertyDetails.bathrooms;
-        var propertyCars = filteredArray[i].listing.propertyDetails.carspaces;
-        var propertyHeadline = filteredArray[i].listing.headline;
-        var propertySummary = filteredArray[i].listing.summaryDescription;
-        var propertyImage = filteredArray[i].listing.media[0].url;
-        var propertyAddress =
-          filteredArray[i].listing.propertyDetails.displayableAddress;
-        var propertyId = filteredArray[i].listing.id;
+  function renderResults(filteredArray) {
+    var searchResults = $("#card-container");
+    searchResults.empty();
+    var heading = $("<h2 class='header'>Search Results</h2>");
+    searchResults.append(heading);
 
-        var thisCard = $(
-          "<div class='card horizontal' id='card" + i + "'></div>"
-        );
+var iterator = 0;
+var limitMAx = 10;
 
-        var thisCardImg = $("<div class='card-image'></div>");
+    for (var i = 0; i < 3; i++) {
+      console.log(filteredArray[i]);
+      var propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
+      var propertyState = filteredArray[i].listing.propertyDetails.state;
+      var propertyPostCode = filteredArray[i].listing.propertyDetails.postcode;
+      var propertyBeds = filteredArray[i].listing.propertyDetails.bedrooms;
+      var propertyBaths = filteredArray[i].listing.propertyDetails.bathrooms;
+      var propertyCars = filteredArray[i].listing.propertyDetails.carspaces;
+      var propertyHeadline = filteredArray[i].listing.headline;
+      var propertySummary = filteredArray[i].listing.summaryDescription;
+      var propertyImage = filteredArray[i].listing.media[0].url;
+      var propertyAddress =
+        filteredArray[i].listing.propertyDetails.displayableAddress;
+      var propertyId = filteredArray[i].listing.id;
 
-        var thisImg = $("<img class='result-img'></img>");
-        thisImg.attr("src", propertyImage);
+      var thisCard = $(
+        "<div class='card horizontal' id='card" + i + "'></div>"
+      );
 
-        var thisStack = $("<div class='card-stacked'></div>");
+      var thisCardImg = $("<div class='card-image'></div>");
 
-        var thisContent = $("<div class='card-content'></div>");
+      var thisImg = $("<img class='result-img'></img>");
+      thisImg.attr("src", propertyImage);
 
-        var thisHeader = $(
-          "<div id='header" + i + "'" + " data-id=" + i + "></div>"
-        );
+      var thisStack = $("<div class='card-stacked'></div>");
 
-        var thisFavoriteImg = $("<img class='favorite'></img>");
+      var thisContent = $("<div class='card-content'></div>");
 
-        thisFavoriteImg.attr("src", "./css/img/LoveUnSelect.png");
-        // This next line should update depending on local storage
-        thisFavoriteImg.attr("data-state", "Unselected");
+      var thisHeader = $(
+        "<div id='header" + i + "'" + " data-id=" + i + "></div>"
+      );
 
-        thisFavoriteImg.attr("width", "7%");
-        var thisPara = $("<p class='title-text'>" + propertyHeadline + "</p>");
+      var thisFavoriteImg = $("<img class='favorite'></img>");
 
-        var thisSummary = $("<p>" + propertySummary + "</p>");
-        var thisAction = $("<div class='card-action'></div>");
+      thisFavoriteImg.attr("src", "./css/img/LoveUnSelect.png");
+      // This next line should update depending on local storage
+      thisFavoriteImg.attr("data-state", "Unselected");
 
-        var thisBeds = $(
-          "<span class='spaced-icons'>" + propertyBeds + "</span>"
-        );
-        var thisBaths = $(
-          "<span class='spaced-icons'>" + propertyBaths + "</span>"
-        );
-        var thisCars = $(
-          "<span class='spaced-icons'>" + propertyCars + "</span>"
-        );
+      thisFavoriteImg.attr("width", "7%");
+      var thisPara = $("<p class='title-text'>" + propertyHeadline + "</p>");
 
-        var bedImgSpan = $("<span class='spaced-icons'></span>");
-        var bathImgSpan = $("<span class='spaced-icons'></span>");
-        var carImgSpan = $("<span class='spaced-icons'></span>");
+      var thisSummary = $("<p>" + propertySummary + "</p>");
+      var thisAction = $("<div class='card-action'></div>");
 
-        var bedImg = $("<img></img>");
-        bedImg.attr("src", "./css/img/Bed.png");
-        bedImg.attr("width", "7%");
+      var thisBeds = $(
+        "<span class='spaced-icons'>" + propertyBeds + "</span>"
+      );
+      var thisBaths = $(
+        "<span class='spaced-icons'>" + propertyBaths + "</span>"
+      );
+      var thisCars = $(
+        "<span class='spaced-icons'>" + propertyCars + "</span>"
+      );
 
-        var thisShortAddress = $(
-          "<span class='right-aligned'>" +
-            propertySuburb +
-            ", " +
-            propertyState +
-            " " +
-            propertyPostCode +
-            "</span>"
-        );
+      var bedImgSpan = $("<span class='spaced-icons'></span>");
+      var bathImgSpan = $("<span class='spaced-icons'></span>");
+      var carImgSpan = $("<span class='spaced-icons'></span>");
 
-        var bathImg = $("<img></img>");
-        bathImg.attr("src", "./css/img/Bath.png");
-        bathImg.attr("width", "7%");
+      var bedImg = $("<img></img>");
+      bedImg.attr("src", "./css/img/Bed.png");
+      bedImg.attr("width", "7%");
 
-        var carImg = $("<img></img>");
-        carImg.attr("src", "./css/img/Car.png");
-        carImg.attr("width", "7%");
+      var thisShortAddress = $(
+        "<span class='right-aligned'>" +
+          propertySuburb +
+          ", " +
+          propertyState +
+          " " +
+          propertyPostCode +
+          "</span>"
+      );
 
-        var thisLink = $("<div></div>");
+      var bathImg = $("<img></img>");
+      bathImg.attr("src", "./css/img/Bath.png");
+      bathImg.attr("width", "7%");
 
-        searchResults.append(
-          thisCard.append(
-            thisCardImg.append(thisImg),
-            thisStack.append(
-              thisContent.append(
-                thisHeader.append(thisPara, thisFavoriteImg),
+      var carImg = $("<img></img>");
+      carImg.attr("src", "./css/img/Car.png");
+      carImg.attr("width", "7%");
 
-                thisSummary
-              ),
-              thisAction.append(
-                thisLink.append(
-                  bedImgSpan.append(bedImg),
-                  thisBeds,
-                  bathImgSpan.append(bathImg),
-                  thisBaths,
-                  carImgSpan.append(carImg),
-                  thisCars,
-                  thisShortAddress
-                )
+      var thisLink = $("<div></div>");
+
+      searchResults.append(
+        thisCard.append(
+          thisCardImg.append(thisImg),
+          thisStack.append(
+            thisContent.append(
+              thisHeader.append(thisPara, thisFavoriteImg),
+
+              thisSummary
+            ),
+            thisAction.append(
+              thisLink.append(
+                bedImgSpan.append(bedImg),
+                thisBeds,
+                bathImgSpan.append(bathImg),
+                thisBaths,
+                carImgSpan.append(carImg),
+                thisCars,
+                thisShortAddress
               )
             )
           )
-        );
-      }
+        )
+      );
+    }
 
+    var nextBtn = $(
+      "<a class='waves-effect waves-light btn right-aligned' id='next-btn'><i class='material-icons right'>navigate_next</i>Next</a>"
+    );
+
+    $(".next-btn").on("click", function () {
+
+//get current min property index
+//get current max property index
+//set new property index = current max property index
+var indexLow="xxx";
+var indexHigh="xxx";
+var newIndexLow="xxx";
+var newIndexhigh="xxx";
+
+
+
+    })
+
+    var prevBtn = $(
+      "<a class='waves-effect waves-light btn' id='prev-btn'><i class='material-icons left'>navigate_before</i>Previous</a>"
+    );
+    
+    
+    
+    $(".prev-btn").on("click", function () {
+
+      var indexLow="xxx";
+      var indexHigh="xxx";
+      var newIndexLow="xxx";
+      var newIndexhigh="xxx";
+
+    })
+
+
+
+
+    searchResults.append(prevBtn, nextBtn);
+
+
+
+  
       // This event listener should be able to update local storage
       $(".favorite").on("click", function () {
         // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
         var state = $(this).attr("data-state");
-        favoriteIndex=event.target.parentElement.getAttribute("data-id");
-
+        favoriteIndex = event.target.parentElement.getAttribute("data-id");
+        console.log(favoriteIndex)
         if (state === "Unselected") {
           $(this).attr("src", "./css/img/LoveSelect.png");
           $(this).attr("data-state", "Selected");
@@ -236,9 +284,16 @@ $(document).ready(function () {
           $(this).attr("data-state", "Unselected");
         }
       });
-    });
-  }
+
+  };
+
+
 });
+
+// next button - 
+// local storage - save heart items to local storage
+// next and previous buttons have to set i to next or previous state.
+
 
 // function storeHistory(lat, lng, myLocation) {
 //   var retrieveStorage = localStorage["searchHistory"];
