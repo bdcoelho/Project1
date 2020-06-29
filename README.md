@@ -18,7 +18,7 @@ I WANT to locate properties that fit my chosen criteria
 SO THAT I can allocate my time towards ONLY properties of interest. 
 
 ## Technologies used
-Our main API used was the domain API from https://www.domain.com.au/. This was used to retrieve the properties that match the user's search criteria. The google maps geocoding API was used to get more accurate and unambiguous location results
+Our main API used was the domain API from https://www.domain.com.au/. This was used to retrieve the properties that match the user's search criteria. The google maps geocoding API was used to get more accurate and unambiguous location results.
 
 We also used the Distance Matrix API from the Google Cloud Platform to compute the distance between a selected property and the work address that the user inputs.
 
