@@ -11,8 +11,12 @@ $(document).ready(function () {
   $("[name='next-btn']").on("click", function () {
     lowIndex = iteratorMax;
     highIndex = lowIndex + 10;
-    searchResults.empty();
-    renderResults(filteredArray, lowIndex, highIndex);
+    highIndex = Math.min(filteredArray.length, 10);
+    if (lowIndex > highIndex) {
+    } else {
+      searchResults.empty();
+      renderResults(filteredArray, lowIndex, highIndex);
+    }
   });
 
   $("[name='prev-btn']").on("click", function () {
@@ -146,7 +150,8 @@ $(document).ready(function () {
   function renderResults(filteredArray, lowIndex, highIndex) {
     var heading = $("<h2 class='header'>Search Results</h2>");
     searchResults.append(heading);
-
+    console.log(lowIndex);
+    console.log(highIndex);
     for (
       var i = Math.max(lowIndex, 0);
       i < Math.min(highIndex, filteredArray.length);
@@ -154,7 +159,7 @@ $(document).ready(function () {
     ) {
       iteratorMin = Math.min(lowIndex, i);
       iteratorMax = Math.max(highIndex, i);
-
+      console.log("iterator=" + i);
       var propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
       var propertyState = filteredArray[i].listing.propertyDetails.state;
       var propertyPostCode = filteredArray[i].listing.propertyDetails.postcode;
