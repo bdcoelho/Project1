@@ -1,27 +1,30 @@
-// GetResponseFromDomain
 $(document).ready(function () {
   var maxPropertyValue = 5000000;
   var instance = $("select").formSelect();
   var iteratorMin = 0;
   var iteratorMax = 9;
   var searchResults = $("#card-container");
-  var filteredArray =[]
+  var filteredArray = [];
   var lowIndex = 0;
   var highIndex = 10;
 
   $("[name='next-btn']").on("click", function () {
     lowIndex = iteratorMax;
     highIndex = lowIndex + 10;
-    searchResults.empty();
-    renderResults(filteredArray,lowIndex,highIndex);
+    highIndex = Math.min(filteredArray.length, 10);
+    if (lowIndex > highIndex) {
+    } else {
+      searchResults.empty();
+      renderResults(filteredArray, lowIndex, highIndex);
+    }
   });
 
   $("[name='prev-btn']").on("click", function () {
     lowIndex = iteratorMin - 10;
-    lowIndex=Math.max(lowIndex,0)
+    lowIndex = Math.max(lowIndex, 0);
     highIndex = lowIndex + 10;
     searchResults.empty();
-    renderResults(filteredArray,lowIndex,highIndex);
+    renderResults(filteredArray, lowIndex, highIndex);
   });
 
   // Function to convert to camelCase and remove forward slash. Unnecessary - changed value in index.html
@@ -42,7 +45,6 @@ $(document).ready(function () {
   //  if(propertyType.indexOf("Apartment/Unit/Flat")!==-1){
   // index=propertyType.indexOf("Apartment/Unit/Flat")
   // propertyType[index]=camelCase(propertyType[index])
-  // console.log(propertyType)
   //  }
 
   var slider = document.getElementById("slider");
@@ -52,33 +54,54 @@ $(document).ready(function () {
     return maxPropertyValue;
   });
 
+  function buildGeoCodeURL(searchTerm) {
+    var queryURLGeo = "https://maps.googleapis.com/maps/api/geocode/json?";
+    var queryParams = { key: "AIzaSyAwmiVLmIUNhiWqaGiGzlHl7WIec1ST8Ys" };
+    queryParams.address = searchTerm.val().trim();
+    return queryURLGeo + $.param(queryParams);
+  }
+
   $("[name='action']").on("click", function (event) {
     event.preventDefault();
     searchResults.empty();
     var propertyStore = [];
 
-    var suburb = $("#9").val();
-    var numOfBed = parseInt($(instance[0]).val());
-    var numOfBath = parseInt($(instance[1]).val());
-    var numOfCarpark = parseInt($(instance[2]).val());
-    var propertyType = $(instance[3]).val();
+    var queryURLGeo = buildGeoCodeURL($("#9"));
 
-    listProperties(
-      suburb,
-      numOfBed,
-      numOfBath,
-      numOfCarpark,
-      propertyType,
-      maxPropertyValue
-    );
+    $.ajax({
+      url: queryURLGeo,
+      method: "GET",
+    }).then(function (responseGeo) {
+      var numOfBed = parseInt($(instance[0]).val());
+      var numOfBath = parseInt($(instance[1]).val());
+      var numOfCarpark = parseInt($(instance[2]).val());
+      var propertyType = $(instance[3]).val();
+      var suburb = responseGeo.results[0].address_components[0].long_name;
+      var state = responseGeo.results[0].address_components[2].short_name;
+      var country = responseGeo.results[0].address_components[3].long_name;
+      var postcode = responseGeo.results[0].address_components[4].long_name;
+      listProperties(
+        suburb,
+        state,
+        postcode,
+        numOfBed,
+        numOfBath,
+        numOfCarpark,
+        propertyType,
+        maxPropertyValue
+      );
+    });
   });
 
   function listProperties(
     suburb,
+    state,
+    postcode,
     numOfBed,
     numOfBath,
     numOfCarpark,
-    propertyType
+    propertyType,
+    maxPropertyValue
   ) {
     var queryURL = "https://api.domain.com.au/v1/listings/residential/_search";
     $.ajax({
@@ -99,11 +122,11 @@ $(document).ready(function () {
         pageSize: 100,
         locations: [
           {
-            state: "VIC",
+            state: state,
             region: "",
             area: "",
             suburb: suburb,
-            postCode: "",
+            postCode: postcode,
             includeSurroundingSuburbs: false,
           },
         ],
@@ -119,29 +142,24 @@ $(document).ready(function () {
         return type.indexOf(itm.type) > -1;
       });
 
-      console.log(filteredArray);
       localStorage["propertyStore"] = JSON.stringify(filteredArray);
-      renderResults(filteredArray,lowIndex,highIndex);
+      renderResults(filteredArray, lowIndex, highIndex);
     });
   }
 
-  function renderResults(filteredArray,lowIndex,highIndex) {
+  function renderResults(filteredArray, lowIndex, highIndex) {
     var heading = $("<h2 class='header'>Search Results</h2>");
     searchResults.append(heading);
-
     console.log(lowIndex);
-    console.log(highIndex)
-
+    console.log(highIndex);
     for (
       var i = Math.max(lowIndex, 0);
       i < Math.min(highIndex, filteredArray.length);
       i++
     ) {
-      
-      console.log("iterator=" + i);
       iteratorMin = Math.min(lowIndex, i);
       iteratorMax = Math.max(highIndex, i);
-
+      console.log("iterator=" + i);
       var propertySuburb = filteredArray[i].listing.propertyDetails.suburb;
       var propertyState = filteredArray[i].listing.propertyDetails.state;
       var propertyPostCode = filteredArray[i].listing.propertyDetails.postcode;
@@ -173,10 +191,23 @@ $(document).ready(function () {
       );
 
       var thisFavoriteImg = $("<img class='favorite'></img>");
+      var favoritePropIds = [];
 
-      thisFavoriteImg.attr("src", "./css/img/LoveUnSelect.png");
-      // This next line should update depending on local storage
-      thisFavoriteImg.attr("data-state", "Unselected");
+      var retrieveStorage = localStorage["favoriteStore"];
+      var favoriteProps = retrieveStorage ? JSON.parse(retrieveStorage) : [];
+
+      for (let k = 0; k < favoriteProps.length; k++) {
+        propID = favoriteProps[k].listing.id;
+        favoritePropIds.push(propID);
+      }
+
+      if (favoritePropIds.indexOf(propertyId) === -1) {
+        thisFavoriteImg.attr("src", "./css/img/LoveUnSelect.png");
+        thisFavoriteImg.attr("data-state", "Unselected");
+      } else {
+        thisFavoriteImg.attr("src", "./css/img/LoveSelect.png");
+        thisFavoriteImg.attr("data-state", "Selected");
+      }
 
       thisFavoriteImg.attr("width", "7%");
       var thisPara = $("<p class='title-text'>" + propertyHeadline + "</p>");
@@ -247,23 +278,34 @@ $(document).ready(function () {
       );
     }
 
-
-    $("[name='next-btn']").css("display","inline")
-    $("[name='prev-btn']").css("display","inline")
-    
-    // This event listener should be able to update local storage
+    $("[name='next-btn']").css("display", "inline");
+    $("[name='prev-btn']").css("display", "inline");
 
     $(".favorite").on("click", function () {
-      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
       var state = $(this).attr("data-state");
       favoriteIndex = event.target.parentElement.getAttribute("data-id");
-      console.log(favoriteIndex);
-      if (state === "Unselected") {
+      targetProperty = filteredArray[favoriteIndex];
+      targetPropertyId = targetProperty.listing.id;
+      var favoritePropIds = [];
+
+      var retrieveStorage = localStorage["favoriteStore"];
+      var favoriteProps = retrieveStorage ? JSON.parse(retrieveStorage) : [];
+
+      for (var i = 0; i < favoriteProps.length; i++) {
+        propID = favoriteProps[i].listing.id;
+        favoritePropIds.push(propID);
+      }
+
+      if (favoritePropIds.indexOf(targetPropertyId) === -1) {
         $(this).attr("src", "./css/img/LoveSelect.png");
         $(this).attr("data-state", "Selected");
+        favoriteProps.push(targetProperty);
+        localStorage["favoriteStore"] = JSON.stringify(favoriteProps);
       } else {
+        favoriteProps.splice(favoritePropIds.indexOf(targetPropertyId), 1);
         $(this).attr("src", "./css/img/LoveUnSelect.png");
         $(this).attr("data-state", "Unselected");
+        localStorage["favoriteStore"] = JSON.stringify(favoriteProps);
       }
     });
   }
