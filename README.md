@@ -1,6 +1,6 @@
 # Project1
 THE DREAM PROPERTY HUNTERS
-#### Live application can be accessed [here.](https://bdcoelho.github.io/Weather-Dashboard/ "Live Weather Application")
+#### Live application can be accessed [here.](https://bdcoelho.github.io/Project1/ "Live Weather Application")
 
 
 ## Elevator pitch
